@@ -39,22 +39,22 @@ app.post("/api/users", async (req, res) => {
 });
 
 // Route: Get User Data by QR Code
-app.get("/api/users/:qrData", async (req, res) => {
+app.get("/api/user-details/:userId", async (req, res) => {
+  const { userId } = req.params;
   try {
-    const { qrData } = req.params;
-
-    const user = await User.findOne({ qrData });
-    if (!user) {
-      return res
-        .status(404)
-        .json({ success: false, message: "User not found" });
+    const user = await User.findById(userId);
+    if (user) {
+      res.status(200).json({ success: true, user });
+    } else {
+      res.status(404).json({ success: false, message: "User not found" });
     }
-
-    res.json({ success: true, user });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res
+      .status(500)
+      .json({ success: false, message: "Error fetching user", error });
   }
 });
+
 app.post("/api/users", async (req, res) => {
   try {
     const userData = req.body;

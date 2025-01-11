@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { v4: uuidv4 } = require("uuid");
+const userRoutes = require("./routes/userRoutes");
 require("dotenv").config();
 
 const User = require("./models/User"); // Import User model
@@ -12,6 +13,7 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(bodyParser.json({ limit: "10mb" })); // For handling large data like photos
+app.use("/api", userRoutes);
 
 // Connect to MongoDB
 mongoose

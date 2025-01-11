@@ -75,4 +75,3 @@ const HOST = "0.0.0.0"; // Ensure you bind to 0.0.0.0
 app.listen(PORT, HOST, () => {
   console.log(`Server is running on http://${HOST}:${PORT}`);
 });
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

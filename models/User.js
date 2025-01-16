@@ -5,11 +5,9 @@ const familyMemberSchema = new mongoose.Schema({
   relationship: String,
   foodPreference: String,
   age: Number,
-  photo: String, // Optional: Store photo path or base64
 });
 
 const userSchema = new mongoose.Schema({
-  photo: String, // Base64 encoded photo or file path
   fullName: String,
   email: String,
   mobile: String,

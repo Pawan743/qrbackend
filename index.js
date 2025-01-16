@@ -25,18 +25,18 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Route: Save Form Data
-app.post("/api/users", async (req, res) => {
-  try {
-    const userData = req.body;
+// app.post("/api/users", async (req, res) => {
+//   try {
+//     const userData = req.body;
 
-    const newUser = new User(userData);
-    const savedUser = await newUser.save();
+//     const newUser = new User(userData);
+//     const savedUser = await newUser.save();
 
-    res.status(201).json({ success: true, user: savedUser });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-});
+//     res.status(201).json({ success: true, user: savedUser });
+//   } catch (error) {
+//     res.status(500).json({ success: false, error: error.message });
+//   }
+// });
 
 // Route: Get User Data by QR Code
 app.get("/api/user-details/:userId", async (req, res) => {

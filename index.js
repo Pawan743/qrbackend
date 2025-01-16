@@ -11,7 +11,7 @@ const User = require("./models/User"); // Import User model
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors()); // Enable CORS
 app.use(bodyParser.json({ limit: "10mb" })); // For handling large data like photos
 app.use("/api", userRoutes);
 
@@ -24,37 +24,7 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB connection error:", err));
 
-// Route: Save Form Data
-// app.post("/api/users", async (req, res) => {
-//   try {
-//     const userData = req.body;
-
-//     const newUser = new User(userData);
-//     const savedUser = await newUser.save();
-
-//     res.status(201).json({ success: true, user: savedUser });
-//   } catch (error) {
-//     res.status(500).json({ success: false, error: error.message });
-//   }
-// });
-
-// Route: Get User Data by QR Code
-app.get("/api/user-details/:userId", async (req, res) => {
-  const { userId } = req.params;
-  try {
-    const user = await User.findById(userId);
-    if (user) {
-      res.status(200).json({ success: true, user });
-    } else {
-      res.status(404).json({ success: false, message: "User not found" });
-    }
-  } catch (error) {
-    res
-      .status(500)
-      .json({ success: false, message: "Error fetching user", error });
-  }
-});
-
+// POST Route: Save Form Data
 app.post("/api/users", async (req, res) => {
   try {
     const userData = req.body;
@@ -68,6 +38,23 @@ app.post("/api/users", async (req, res) => {
     res.status(201).json({ success: true, user: savedUser });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// GET Route: Get User Data by QR Code
+app.get("/api/user-details/:userId", async (req, res) => {
+  const { userId } = req.params;
+  try {
+    const user = await User.findById(userId);
+    if (user) {
+      res.status(200).json({ success: true, user });
+    } else {
+      res.status(404).json({ success: false, message: "User not found" });
+    }
+  } catch (error) {
+    res
+      .status(500)
+      .json({ success: false, message: "Error fetching user", error });
   }
 });
 
